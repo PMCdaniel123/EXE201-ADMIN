@@ -1,4 +1,4 @@
-import { Select, Tag, Tooltip, Typography } from "antd";
+import { Tag, Tooltip, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { DeleteProduct } from "./actions";
@@ -106,14 +106,8 @@ export const CUSTOMER_TABLE_COLUMNS = [
   },
 ];
 
-const { Option } = Select;
 
-export const ORDERS_TABLE_COLUMNS = ({
-  editableRowKey,
-  handleStatusChange,
-  onEditStatus,
-  onSaveStatus,
-}) => [
+export const ORDERS_TABLE_COLUMNS = () => [
   {
     title: "ID",
     dataIndex: "id",
@@ -151,43 +145,7 @@ export const ORDERS_TABLE_COLUMNS = ({
     title: "Payment Method",
     dataIndex: "payment_method",
     key: "payment_method",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    render: (status, record) => {
-      return editableRowKey === record.id ? (
-        <Select
-          defaultValue={status}
-          style={{ width: 120 }}
-          onChange={(value) => handleStatusChange(record.id, value)}
-          onBlur={() => onSaveStatus(record.id)}
-        >
-          <Option value="processing">Processing</Option>
-          <Option value="shipping">Shipping</Option>
-          <Option value="successful">Successful</Option>
-          <Option value="waiting">Waiting</Option>
-        </Select>
-      ) : (
-        <Tag
-          color={
-            status === "processing"
-              ? "blue"
-              : status === "shipping"
-              ? "yellow"
-              : status === "successful"
-              ? "success"
-              : "error"
-          }
-          onClick={() => onEditStatus(record.id)}
-          style={{ cursor: "pointer" }}
-        >
-          {status.charAt(0).toUpperCase() + status.slice(1)}
-        </Tag>
-      );
-    },
-  },
+  }
 ];
 
 export const BLOG_TABLE_COLUMNS = [
