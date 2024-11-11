@@ -106,7 +106,6 @@ export const CUSTOMER_TABLE_COLUMNS = [
   },
 ];
 
-
 export const ORDERS_TABLE_COLUMNS = () => [
   {
     title: "ID",
@@ -146,7 +145,25 @@ export const ORDERS_TABLE_COLUMNS = () => [
     title: "Payment Method",
     dataIndex: "payment_method",
     key: "payment_method",
-  }
+  },
+  {
+    title: "Create At",
+    dataIndex: "created_at",
+    key: "created_at",
+    render: (value) => {
+      return (
+        <Typography.Text>
+          {new Date(value).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Typography.Text>
+      );
+    },
+  },
 ];
 
 export const BLOG_TABLE_COLUMNS = [
