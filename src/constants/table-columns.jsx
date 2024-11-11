@@ -150,6 +150,9 @@ export const ORDERS_TABLE_COLUMNS = () => [
     title: "Create At",
     dataIndex: "created_at",
     key: "created_at",
+    sorter: {
+      compare: (a, b) => new Date(b.created_at) - new Date(a.created_at),
+    },
     render: (value) => {
       return (
         <Typography.Text>
