@@ -135,6 +135,7 @@ export const ORDERS_TABLE_COLUMNS = () => [
     title: "Shipping Address",
     dataIndex: "shipping_address",
     key: "shipping_address",
+    width: 300,
   },
   {
     title: "Phone Number",
