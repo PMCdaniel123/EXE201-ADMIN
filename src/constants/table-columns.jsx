@@ -145,6 +145,17 @@ export const ORDERS_TABLE_COLUMNS = () => [
     title: "Payment Method",
     dataIndex: "payment_method",
     key: "payment_method",
+    filters: [
+      {
+        text: 'COD',
+        value: 'cod',
+      },
+      {
+        text: 'Online',
+        value: 'online',
+      },
+    ],
+    onFilter: (value, record) => record.payment_method.indexOf(value) === 0,
   },
   {
     title: "Create At",

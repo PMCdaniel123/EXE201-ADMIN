@@ -55,37 +55,66 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const getTotalAmountPerMonth = () => {
-    const monthlyTotals = Array(12).fill(0);
+  // const getTotalAmountPerMonth = () => {
+  //   const monthlyTotals = Array(12).fill(0);
+
+  //   orders.forEach((order) => {
+  //     const date = new Date(order.created_at);
+  //     const monthIndex = date.getMonth();
+  //     monthlyTotals[monthIndex] += parseFloat(order.total_amount);
+  //   });
+
+  //   return monthlyTotals;
+  // };
+
+  // const chartData = {
+  //   labels: [
+  //     "January",
+  //     "February",
+  //     "March",
+  //     "April",
+  //     "May",
+  //     "June",
+  //     "July",
+  //     "August",
+  //     "September",
+  //     "October",
+  //     "November",
+  //     "December",
+  //   ],
+  //   datasets: [
+  //     {
+  //       label: "Total Orders Amount",
+  //       data: getTotalAmountPerMonth(),
+  //       borderColor: "#4A5942",
+  //       backgroundColor: "#9d905a",
+  //       fill: true,
+  //     },
+  //   ],
+  // };
+
+  const getTotalAmountPerDayInNovember = () => {
+    const dailyTotals = Array(30).fill(0); // November has 30 days
 
     orders.forEach((order) => {
       const date = new Date(order.created_at);
-      const monthIndex = date.getMonth();
-      monthlyTotals[monthIndex] += parseFloat(order.total_amount);
+      const month = date.getMonth();
+      const day = date.getDate();
+
+      if (month === 10) {
+        dailyTotals[day - 1] += parseFloat(order.total_amount);
+      }
     });
 
-    return monthlyTotals;
+    return dailyTotals;
   };
 
-  const chartData = {
-    labels: [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ],
+  const novemberChartData = {
+    labels: Array.from({ length: 30 }, (_, i) => (i + 1 < 10 ? `0${i + 1}/11` : `${i + 1}/11`)),
     datasets: [
       {
-        label: "Total Orders Amount",
-        data: getTotalAmountPerMonth(),
+        label: "Total Orders Amount in November",
+        data: getTotalAmountPerDayInNovember(),
         borderColor: "#4A5942",
         backgroundColor: "#9d905a",
         fill: true,
@@ -166,7 +195,7 @@ export default function Home() {
 
       <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-lg font-bold text-gray-800 mb-4">Orders Chart</h2>
-        <Line data={chartData} options={chartOptions} />
+        <Line data={novemberChartData} options={chartOptions} />
       </div>
     </div>
   );
